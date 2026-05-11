@@ -240,3 +240,26 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
 }
+
+/* Make sure admin button stays in place */
+#aboutAdminBtn {
+    display: none;
+    text-align: center;
+    margin: 40px 0 60px 0;
+}
+
+.admin-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.admin-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
