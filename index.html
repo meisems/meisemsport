@@ -1014,15 +1014,17 @@
         grid.appendChild(card);
     });
 
-    // Add animation to cards
+    // Animation for cards
     const cards = document.querySelectorAll('.project-card');
     cards.forEach((card, index) => {
         card.style.animation = `fadeIn 0.8s ease-out ${0.4 + index * 0.1}s backwards`;
     });
 
-    // === FIX: Show/Hide Add Button ===
+    // === SHOW ADD BUTTON WHEN IN ADMIN MODE ===
     const addBtn = document.getElementById('addProjectBtn');
-    addBtn.classList.toggle('visible', isAdminMode);
+    if (addBtn) {
+        addBtn.classList.toggle('visible', isAdminMode);
+    }
 }
 
             const addBtn = document.getElementById('addProjectBtn');
