@@ -1021,6 +1021,9 @@
             });
         }
 
+            const addBtn = document.getElementById('addProjectBtn');
+            addBtn.classList.toggle('visible', isAdminMode);
+
         let currentTechTags = [];
 
         function openAddModal() {
