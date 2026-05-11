@@ -34,9 +34,10 @@ const defaultProjects = [
 
 // ===== APP STATE =====
 let projects = [];
-let isAdminMode = false;
+let isAdminMode = false;           // Keep this one
 let editingProjectId = null;
 let nextProjectId = 4;
 let currentImageBase64 = null;
 let currentTechTags = [];
-const ADMIN_SECRET = 'eliej627456';
+
+// Remove ADMIN_SECRET from here (it's now only in admin.js)
