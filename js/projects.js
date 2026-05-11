@@ -1,19 +1,22 @@
 // ===== PROJECTS =====
 function loadProjects() {
-    // For now, we use the defaultProjects defined in data.js
-    // Later we can load from a JSON file if needed
-    projects = projects || [];
-    if (projects.length === 0) {
-        // fallback
-        projects = [...defaultProjects]; // if you still have defaultProjects
+    const saved = localStorage.getItem('portfolioProjects');
+    
+    if (saved && isAdminMode) {
+        // Admin can see their temporary changes
+        projects = JSON.parse(saved);
+    } 
+    // Otherwise use the data from data.js (public version)
+    
+    // Update next ID
+    if (projects.length > 0) {
+        nextProjectId = Math.max(...projects.map(p => p.id)) + 1;
     }
-    nextProjectId = Math.max(...projects.map(p => p.id), 0) + 1;
 }
 
 function saveProjects() {
-    // This will only save locally for admin preview
     localStorage.setItem('portfolioProjects', JSON.stringify(projects));
-    console.log("💾 Projects saved locally. Copy them to data.js to make public!");
+    console.log('%c💾 Changes saved locally (visible only to you)', 'color: orange');
 }
 
 // Add this new function for admin
