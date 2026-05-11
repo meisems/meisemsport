@@ -222,3 +222,12 @@ footer {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
 }
+
+.hire-me-btn {
+    background: linear-gradient(135deg, #10b981, #34d399) !important;
+}
+
+.hire-me-btn:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
