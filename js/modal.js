@@ -104,7 +104,7 @@ function setupFormSubmit() {
     });
 }
 
-// ====================== CONTACT / HIRE ME MODAL ======================
+// ====================== HIRE ME / CONTACT MODAL ======================
 
 function openContactModal() {
     document.getElementById('contactModal').classList.add('active');
@@ -115,11 +115,11 @@ function closeContactModal() {
     document.getElementById('contactForm').reset();
 }
 
-// Handle Contact Form Submission
+// Form Submission - Opens Facebook Messenger
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-
-    const name = document.getElementById('contactName').value.trim();
+    
+    const name = document.getElementById('contactName').value.trim() || "Client";
     const email = document.getElementById('contactEmail').value.trim();
     const service = document.getElementById('contactService').value;
     const message = document.getElementById('contactMessage').value.trim();
@@ -127,10 +127,10 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const fbMessage = `Hi! I'm ${name} (${email}).%0A%0A` +
                      `Interested in: ${service}%0A%0A` +
                      `Project Details:%0A${message}%0A%0A` +
-                     `Looking forward to your reply!`;
+                     `Looking forward to discussing this project!`;
 
-    const messengerLink = `https://www.facebook.com/messages/t/meisems?message=${fbMessage}`;
+    const messengerUrl = `https://www.facebook.com/messages/t/meisems?message=${fbMessage}`;
 
-    window.open(messengerLink, '_blank');
+    window.open(messengerUrl, '_blank');
     closeContactModal();
 });
