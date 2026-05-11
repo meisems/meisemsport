@@ -16,6 +16,9 @@ function init() {
     checkAdminMode();
     setupImageUpload();
     setupFormSubmit();
+    loadAboutData();
+    renderAbout();
+    toggleAboutAdminButton();
 }
 
 window.onload = init;
