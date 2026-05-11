@@ -836,9 +836,11 @@
     </div>
     
     <div class="form-group">
-        <label>Preview Image URL <span style="color:#666; font-size:13px;">(optional)</span></label>
-        <input type="url" id="formImageUrl" placeholder="https://example.com/image.jpg">
-    </div>
+    <label>Project Preview Image</label>
+    <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px;">
+    <input type="text" id="formImageUrl" placeholder="Or paste image URL here" style="margin-top: 8px;">
+    <small style="color:#666; display:block; margin-top: 5px;">Upload from computer or use direct image link</small>
+</div>
     
     <!-- Fixed Project Link -->
     <div class="form-group">
@@ -1065,6 +1067,21 @@
             document.getElementById('techTagsContainer').innerHTML = '';
             editingProjectId = null;
         }
+
+        // Handle image upload and convert to Base64
+let currentImageBase64 = null;
+
+document.getElementById('imageUpload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        currentImageBase64 = event.target.result; // Base64 string
+        document.getElementById('formImageUrl').value = ''; // Clear URL field
+    };
+    reader.readAsDataURL(file);
+});
 
         function addTechTag() {
             const input = document.getElementById('techInput');
