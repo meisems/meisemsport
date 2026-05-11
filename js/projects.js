@@ -1,13 +1,34 @@
 // ===== PROJECTS =====
 function loadProjects() {
-    const saved = localStorage.getItem('portfolioProjects');
-    projects = saved ? JSON.parse(saved) : [...defaultProjects];
-    if (projects.length > 0) nextProjectId = Math.max(...projects.map(p => p.id)) + 1;
+    // For now, we use the defaultProjects defined in data.js
+    // Later we can load from a JSON file if needed
+    projects = projects || [];
+    if (projects.length === 0) {
+        // fallback
+        projects = [...defaultProjects]; // if you still have defaultProjects
+    }
+    nextProjectId = Math.max(...projects.map(p => p.id), 0) + 1;
 }
 
 function saveProjects() {
+    // This will only save locally for admin preview
     localStorage.setItem('portfolioProjects', JSON.stringify(projects));
+    console.log("💾 Projects saved locally. Copy them to data.js to make public!");
 }
+
+// Add this new function for admin
+window.exportProjects = function() {
+    const dataStr = JSON.stringify(projects, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    const exportFileDefaultName = 'projects.json';
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    
+    alert("✅ Projects exported! Paste the content into js/data.js to make changes public.");
+};
 
 function renderProjects() {
     const grid = document.getElementById('projectsGrid');
