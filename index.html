@@ -173,6 +173,31 @@
             </form>
         </div>
     </div>
+
+    <!-- About Me Edit Modal -->
+<div class="modal" id="aboutModal">
+    <div class="modal-content">
+        <h2 class="modal-header">Edit About Me</h2>
+        <form id="aboutForm">
+            <div class="form-group">
+                <label>Bio / Introduction</label>
+                <textarea id="aboutBio" rows="6" required placeholder="I'm a passionate full-stack developer..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Skills (comma separated)</label>
+                <input type="text" id="aboutSkills" placeholder="React, Node.js, Tailwind, MongoDB, etc." required>
+            </div>
+            <div class="form-group">
+                <label>Years of Experience</label>
+                <input type="text" id="aboutExperience" placeholder="3+ years" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save">Save Changes</button>
+                <button type="button" class="btn-cancel" onclick="closeAboutModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
     <!-- Scripts (order matters) -->
     <script src="js/data.js"></script>
     <script src="js/theme.js"></script>
