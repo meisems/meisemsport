@@ -1,5 +1,5 @@
-// ===== DEFAULT PROJECTS DATA =====
-const defaultProjects = [
+// ===== DEFAULT PROJECTS DATA (Public for everyone) =====
+let projects = [
     {
         id: 1,
         icon: '🎪',
@@ -32,9 +32,6 @@ const defaultProjects = [
     }
 ];
 
-// ===== APP STATE =====
-let projects = [];
-// isAdminMode is declared only in admin.js now
 let editingProjectId = null;
 let nextProjectId = 4;
 let currentImageBase64 = null;
