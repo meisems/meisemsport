@@ -74,58 +74,53 @@
 </footer>
 
     <!-- Edit / Add Project Modal -->
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <h2 class="modal-header" id="modalTitle">Edit Project</h2>
-            <form id="projectForm">
-
-                <div class="form-group">
-                    <label>Project Icon (Emoji)</label>
-                    <input type="text" id="formIcon" maxlength="2" placeholder="🎪" required>
+<div class="modal" id="projectModal">
+    <div class="modal-content">
+        <h2 class="modal-header" id="modalTitle">Edit Project</h2>
+        <form id="projectForm">
+            <div class="form-group">
+                <label>Project Icon (Emoji)</label>
+                <input type="text" id="formIcon" maxlength="2" placeholder="🎪" required>
+            </div>
+            <div class="form-group">
+                <label>Project Title</label>
+                <input type="text" id="formTitle" placeholder="MetroEvents" required>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="formCategory" placeholder="Web Application" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="formDescription" placeholder="A dynamic event management platform..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Project Preview Image</label>
+                <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px; width: 100%;">
+                <input type="text" id="formImageUrl" placeholder="Or paste image URL here (optional)" style="margin-top: 8px;">
+                <small style="color: #666; display: block; margin-top: 5px;">Upload from computer preferred</small>
+            </div>
+            <div class="form-group">
+                <label>Project Link <span style="color: #ef4444; font-size: 13px;">(Required - Full URL)</span></label>
+                <input type="text" id="formLink" placeholder="https://meisemsport.onrender.com" required>
+            </div>
+            <div class="form-group">
+                <label>Technologies</label>
+                <div class="tech-input-container">
+                    <input type="text" id="techInput" placeholder="e.g., React">
+                    <button type="button" onclick="addTechTag()">Add</button>
                 </div>
+                <div class="tech-tags-edit" id="techTagsContainer"></div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save">Save Project</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-                <div class="form-group">
-                    <label>Project Title</label>
-                    <input type="text" id="formTitle" placeholder="MetroEvents" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Category</label>
-                    <input type="text" id="formCategory" placeholder="Web Application" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="formDescription" placeholder="A dynamic event management platform..." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Project Preview Image</label>
-                    <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px; width: 100%;">
-                    <input type="text" id="formImageUrl" placeholder="Or paste image URL here (optional)" style="margin-top: 8px;">
-                    <small style="color: #666; display: block; margin-top: 5px;">Upload from computer preferred</small>
-                </div>
-
-                <div class="form-group">
-                    <label>Project Link <span style="color: #ef4444; font-size: 13px;">(Required - Full URL)</span></label>
-                    <input type="text" id="formLink" placeholder="https://meisemsport.onrender.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Technologies</label>
-                    <div class="tech-input-container">
-                        <input type="text" id="techInput" placeholder="e.g., React">
-                        <button type="button" onclick="addTechTag()">Add</button>
-                    </div>
-                    <div class="tech-tags-edit" id="techTagsContainer"></div>
-                </div>
-
-                <div class="form-buttons">
-                    <button type="submit" class="btn-save">Save Project</button>
-                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-                </div>
-
-                <!-- Hire Me / Contact Modal -->
+<!-- ====================== HIRE ME MODAL ====================== -->
 <div class="modal" id="contactModal">
     <div class="modal-content">
         <h2 class="modal-header">Let's Work Together</h2>
@@ -133,11 +128,11 @@
         <form id="contactForm">
             <div class="form-group">
                 <label>Your Name</label>
-                <input type="text" id="contactName" required placeholder="Full Name">
+                <input type="text" id="contactName" required placeholder="John Doe">
             </div>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" id="contactEmail" required placeholder="youremail@gmail.com">
+                <input type="email" id="contactEmail" required placeholder="your@email.com">
             </div>
             <div class="form-group">
                 <label>Service Interested In</label>
