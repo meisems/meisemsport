@@ -1,4 +1,3 @@
-// ==================== ABOUT DATA ====================
 let aboutData = {
     imageUrl: "",
     bio: "Passionate full-stack developer creating modern and user-friendly web experiences.",
@@ -6,78 +5,50 @@ let aboutData = {
     experience: "3+ years"
 };
 
-// Load from localStorage
 function loadAboutData() {
     const saved = localStorage.getItem('aboutData');
-    if (saved) {
-        aboutData = JSON.parse(saved);
-    }
+    if (saved) aboutData = JSON.parse(saved);
 }
 
-// Save to localStorage
 function saveAboutData() {
     localStorage.setItem('aboutData', JSON.stringify(aboutData));
 }
 
-// Render About Me section
 function renderAbout() {
     const container = document.getElementById('aboutContent');
     if (!container) return;
 
-    let imageHTML = aboutData.imageUrl 
-        ? `<img src="${aboutData.imageUrl}" alt="Profile Picture" class="profile-img">`
-        : `<div class="profile-placeholder"></div>`;
+    const imageHTML = aboutData.imageUrl ? 
+        `<img src="${aboutData.imageUrl}" alt="Profile" style="width:180px;height:180px;object-fit:cover;border-radius:50%;margin-bottom:20px;">` : '';
 
     container.innerHTML = `
-        <div class="about-wrapper">
+        <div style="text-align:center;max-width:700px;margin:0 auto;">
             ${imageHTML}
-            <p class="about-bio">${aboutData.bio}</p>
-            
-            <div class="skills-section">
+            <p style="font-size:1.1rem;line-height:1.7;color:var(--text-secondary);">${aboutData.bio}</p>
+            <div style="margin:25px 0;">
                 <h3>Skills</h3>
-                <div class="tech-tags">
-                    ${aboutData.skills.map(skill => 
-                        `<span class="tech-tag">${skill}</span>`
-                    ).join('')}
+                <div class="tech-tags" style="justify-content:center;">
+                    ${aboutData.skills.map(s => `<span class="tech-tag">${s}</span>`).join('')}
                 </div>
             </div>
-            
-            <p class="experience"><strong>Experience:</strong> ${aboutData.experience}</p>
+            <p><strong>Experience:</strong> ${aboutData.experience}</p>
         </div>
     `;
 }
 
-// Open Edit Modal
 function openAboutModal() {
     document.getElementById('aboutBio').value = aboutData.bio;
     document.getElementById('aboutSkills').value = aboutData.skills.join(', ');
     document.getElementById('aboutExperience').value = aboutData.experience;
     document.getElementById('aboutImageUrl').value = aboutData.imageUrl || '';
-    
     document.getElementById('aboutModal').classList.add('active');
 }
 
-// Close Edit Modal
 function closeAboutModal() {
     document.getElementById('aboutModal').classList.remove('active');
 }
 
-// Save changes from modal
-document.getElementById('aboutForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    aboutData.bio = document.getElementById('aboutBio').value.trim();
-    aboutData.skills = document.getElementById('aboutSkills').value
-                        .split(',').map(s => s.trim()).filter(Boolean);
-    aboutData.experience = document.getElementById('aboutExperience').value.trim();
-    aboutData.imageUrl = document.getElementById('aboutImageUrl').value.trim();
-    
-    saveAboutData();
-    renderAbout();
-    closeAboutModal();
-});
-
-// Show/Hide Admin Button
+// Show/Hide Edit Button based on Admin Mode
 function toggleAboutAdminButton() {
     const btn = document.getElementById('aboutAdminBtn');
     if (btn) {
@@ -91,8 +62,3 @@ function initAbout() {
     renderAbout();
     toggleAboutAdminButton();
 }
-
-// Make functions globally available
-window.openAboutModal = openAboutModal;
-window.closeAboutModal = closeAboutModal;
-window.initAbout = initAbout;
