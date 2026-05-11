@@ -1121,14 +1121,14 @@ document.getElementById('imageUpload').addEventListener('change', function(e) {
             e.preventDefault();
 
             const projectData = {
-                icon: document.getElementById('formIcon').value,
-                title: document.getElementById('formTitle').value,
-                category: document.getElementById('formCategory').value,
-                description: document.getElementById('formDescription').value,
-                imageUrl: document.getElementById('formImageUrl').value,
-                link: document.getElementById('formLink').value,
-                technologies: currentTechTags
-            };
+    icon: document.getElementById('formIcon').value,
+    title: document.getElementById('formTitle').value,
+    category: document.getElementById('formCategory').value,
+    description: document.getElementById('formDescription').value,
+    imageUrl: currentImageBase64 || document.getElementById('formImageUrl').value,
+    link: document.getElementById('formLink').value,
+    technologies: currentTechTags
+};
 
             if (editingProjectId) {
                 // Update existing
