@@ -907,14 +907,13 @@
         const ADMIN_SECRET = 'admin-mode-secret-key-2024';
 
         // Initialize
-        function init() {
-            loadProjects();
-            renderProjects();
-            initializeTheme();
-            setupEventListeners();
-            checkAdminMode();
-        }
-
+function init() {
+    loadProjects();
+    renderProjects();
+    initializeTheme();
+    setupEventListeners();
+    checkAdminMode();        // ← This was missing in the second init
+}
         function checkAdminMode() {
             const params = new URLSearchParams(window.location.search);
             const adminCode = params.get('admin');
