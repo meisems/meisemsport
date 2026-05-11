@@ -2,10 +2,10 @@
 const CloudStorage = {
     // IMPORTANT: Replace these with your own JSONBin credentials
     // Get your API keys from: https://jsonbin.io/api-keys
-    API_KEY: '',  // Your JSONBin API Key (optional, for faster reads)
+    API_KEY: '$2a$10$bUSDB0KHuEKK0drRQJNipO1C80T4GR9OldPGBsdSVFWsYGPJ3ZMlC',  // Your JSONBin API Key (optional, for faster reads)
     
     // The Bin ID - get this after creating a bin at https://jsonbin.io
-    BIN_ID: '',   // Example: '64a1234567890abcdef12345'
+    BIN_ID: '6a022fa4c0954111d80b8a31',   // Example: '64a1234567890abcdef12345'
     
     // JSONBin API endpoints
     BASE_URL: 'https://api.jsonbin.io/v3',
