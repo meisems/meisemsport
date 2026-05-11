@@ -1,14 +1,29 @@
-// ===== ADMIN MODE =====
-function checkAdminMode() {
-    const params = new URLSearchParams(window.location.search);
-    const adminParam = params.get('admin');
+let isAdminMode = false;
 
-    if (adminParam === ADMIN_SECRET || sessionStorage.getItem('adminMode') === 'true') {
+function checkAdminMode() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const adminParam = urlParams.get('admin');
+    
+    if (adminParam === 'eliej627456') {
         isAdminMode = true;
-        sessionStorage.setItem('adminMode', 'true');
-        if (adminParam) window.history.replaceState({}, document.title, window.location.pathname);
-        renderProjects();
-        showAdminNotification();
+        document.body.classList.add('admin-mode');
+    }
+    
+    // Also support keyboard toggle
+    toggleAboutAdminButton();
+    // Toggle project admin buttons too if you have them
+    const addBtn = document.getElementById('addProjectBtn');
+    if (addBtn) addBtn.style.display = isAdminMode ? 'block' : 'none';
+}
+
+function showAdminMenu() {
+    isAdminMode = !isAdminMode;
+    document.body.classList.toggle('admin-mode', isAdminMode);
+    toggleAboutAdminButton();
+    
+    // Optional: show a small notification
+    if (isAdminMode) {
+        console.log("%cAdmin Mode Activated", "color: #22c55e; font-weight: bold");
     }
 }
 
