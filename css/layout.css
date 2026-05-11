@@ -205,3 +205,20 @@ footer {
         text-align: center;
     }
 }
+
+.hire-me-btn {
+    padding: 14px 36px;
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.hire-me-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
