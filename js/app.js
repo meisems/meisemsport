@@ -9,16 +9,23 @@ function setupEventListeners() {
 
 // ===== INIT =====
 function init() {
+    // Load and render content
     loadProjects();
     renderProjects();
-    initializeTheme();
-    setupEventListeners();
-    checkAdminMode();
-    setupImageUpload();
-    setupFormSubmit();
+    
     loadAboutData();
     renderAbout();
-    toggleAboutAdminButton();
+    
+    // Theme and other setups
+    initializeTheme();
+    setupEventListeners();
+    setupImageUpload();
+    setupFormSubmit();
+    
+    // Admin mode (must come after content is rendered)
+    checkAdminMode();
+    toggleAboutAdminButton();   // Ensure button visibility after admin check
 }
 
+// Make sure global functions are available
 window.onload = init;
