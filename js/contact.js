@@ -1,15 +1,19 @@
-// ====================== HIRE ME / CONTACT MODAL ======================
+// ====================== HIRE ME CONTACT MODAL ======================
 
-function openContactModal() {
-    document.getElementById('contactModal').classList.add('active');
-}
+// Make sure functions are available globally
+window.openContactModal = function() {
+    const modal = document.getElementById('contactModal');
+    if (modal) modal.classList.add('active');
+};
 
-function closeContactModal() {
-    document.getElementById('contactModal').classList.remove('active');
-    document.getElementById('contactForm').reset();
-}
+window.closeContactModal = function() {
+    const modal = document.getElementById('contactModal');
+    if (modal) modal.classList.remove('active');
+    const form = document.getElementById('contactForm');
+    if (form) form.reset();
+};
 
-// Wait for DOM to be fully loaded before attaching listeners
+// Wait until everything is loaded
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     
@@ -17,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('contactName').value.trim() || "Client";
-            const email = document.getElementById('contactEmail').value.trim();
-            const service = document.getElementById('contactService').value;
-            const message = document.getElementById('contactMessage').value.trim();
+            const name = (document.getElementById('contactName') || {}).value?.trim() || "Client";
+            const email = (document.getElementById('contactEmail') || {}).value?.trim() || "";
+            const service = (document.getElementById('contactService') || {}).value || "";
+            const message = (document.getElementById('contactMessage') || {}).value?.trim() || "";
 
             const fbMessage = `Hi! I'm ${name} (${email}).%0A%0A` +
                              `Interested in: ${service}%0A%0A` +
