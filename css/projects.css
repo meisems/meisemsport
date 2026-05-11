@@ -202,3 +202,26 @@
         font-size: 22px;
     }
 }
+
+/* ADMIN VISIBILITY - BOTH MOBILE & DESKTOP */
+.admin-controls {
+    display: none !important;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    gap: 8px;
+    z-index: 10;
+}
+
+.admin-mode .admin-controls {
+    display: flex !important;
+}
+
+.add-project-btn.visible {
+    display: block !important;
+}
+
+/* Make edit/delete buttons visible on mobile too */
+.project-card {
+    position: relative;
+}
