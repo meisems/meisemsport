@@ -90,6 +90,25 @@
     </div>
 </footer>
 
+<!-- About Me Section -->
+<section class="about-section" id="about">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        
+        <div class="about-content" id="aboutContent">
+            <!-- Filled by JavaScript -->
+        </div>
+
+        <!-- Admin Edit Button -->
+        <div id="aboutAdminBtn" style="text-align: center; margin: 30px 0; display: none;">
+            <button onclick="openAboutModal()" 
+                    style="padding: 12px 28px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                ✏️ Edit About Me
+            </button>
+        </div>
+    </div>
+</section>
+    
     <!-- Edit / Add Project Modal -->
 <div class="modal" id="projectModal">
     <div class="modal-content">
@@ -137,6 +156,36 @@
     </div>
 </div>
 
+<!-- About Me Edit Modal -->
+<div class="modal" id="aboutModal">
+    <div class="modal-content">
+        <h2 class="modal-header">Edit About Me</h2>
+        <form id="aboutForm">
+            <div class="form-group">
+                <label>Profile Picture</label>
+                <input type="file" id="aboutImageUpload" accept="image/*">
+                <input type="text" id="aboutImageUrl" placeholder="Or paste image URL" style="margin-top: 8px;">
+            </div>
+            <div class="form-group">
+                <label>Bio / Introduction</label>
+                <textarea id="aboutBio" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Skills (comma separated)</label>
+                <input type="text" id="aboutSkills" placeholder="React, Node.js, Tailwind CSS..." required>
+            </div>
+            <div class="form-group">
+                <label>Experience</label>
+                <input type="text" id="aboutExperience" placeholder="3+ years of experience" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save">Save Changes</button>
+                <button type="button" class="btn-cancel" onclick="closeAboutModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- ==================== HIRE ME MODAL ==================== -->
     <div class="modal" id="contactModal">
         <div class="modal-content">
@@ -173,31 +222,7 @@
             </form>
         </div>
     </div>
-
-    <!-- About Me Edit Modal -->
-<div class="modal" id="aboutModal">
-    <div class="modal-content">
-        <h2 class="modal-header">Edit About Me</h2>
-        <form id="aboutForm">
-            <div class="form-group">
-                <label>Bio / Introduction</label>
-                <textarea id="aboutBio" rows="6" required placeholder="I'm a passionate full-stack developer..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Skills (comma separated)</label>
-                <input type="text" id="aboutSkills" placeholder="React, Node.js, Tailwind, MongoDB, etc." required>
-            </div>
-            <div class="form-group">
-                <label>Years of Experience</label>
-                <input type="text" id="aboutExperience" placeholder="3+ years" required>
-            </div>
-            <div class="form-buttons">
-                <button type="submit" class="btn-save">Save Changes</button>
-                <button type="button" class="btn-cancel" onclick="closeAboutModal()">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
+    
     <!-- Scripts (order matters) -->
     <script src="js/data.js"></script>
     <script src="js/theme.js"></script>
