@@ -963,14 +963,6 @@ function init() {
             addBtn.classList.remove('visible');
         }
 
-        // Initialize
-        function init() {
-            loadProjects();
-            renderProjects();
-            initializeTheme();
-            setupEventListeners();
-        }
-
         function loadProjects() {
             const saved = localStorage.getItem('portfolioProjects');
             projects = saved ? JSON.parse(saved) : [...defaultProjects];
