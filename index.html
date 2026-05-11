@@ -1120,17 +1120,38 @@ document.getElementById('imageUpload').addEventListener('change', function(e) {
         }
 
         document.getElementById('projectForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+    e.preventDefault();
+    
+    const imageUrl = currentImageBase64 || document.getElementById('formImageUrl').value.trim();
 
-            const projectData = {
-    icon: document.getElementById('formIcon').value,
-    title: document.getElementById('formTitle').value,
-    category: document.getElementById('formCategory').value,
-    description: document.getElementById('formDescription').value,
-    imageUrl: currentImageBase64 || document.getElementById('formImageUrl').value,
-    link: document.getElementById('formLink').value,
-    technologies: currentTechTags
-};
+    const projectData = {
+        icon: document.getElementById('formIcon').value,
+        title: document.getElementById('formTitle').value,
+        category: document.getElementById('formCategory').value,
+        description: document.getElementById('formDescription').value,
+        imageUrl: imageUrl || null,
+        link: document.getElementById('formLink').value,
+        technologies: currentTechTags
+    };
+
+    if (editingProjectId) {
+        const project = projects.find(p => p.id === editingProjectId);
+        if (project) Object.assign(project, projectData);
+    } else {
+        projects.push({
+            id: nextProjectId++,
+            ...projectData
+        });
+    }
+
+    saveProjects();
+    renderProjects();
+    closeModal();
+    
+    // Reset image upload
+    currentImageBase64 = null;
+    document.getElementById('imageUpload').value = '';
+});
 
             if (editingProjectId) {
                 // Update existing
