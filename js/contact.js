@@ -1,40 +1,24 @@
-// Hire Me Contact Modal
 window.openContactModal = function() {
-    const modal = document.getElementById('contactModal');
-    if (modal) {
-        modal.classList.add('active');
-    } else {
-        console.error("Contact modal not found in DOM");
-    }
+    document.getElementById('contactModal').classList.add('active');
 };
 
 window.closeContactModal = function() {
-    const modal = document.getElementById('contactModal');
-    if (modal) modal.classList.remove('active');
-    
-    const form = document.getElementById('contactForm');
-    if (form) form.reset();
+    document.getElementById('contactModal').classList.remove('active');
 };
 
-// Form handler
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contactForm');
-    if (!form) {
-        console.warn("Contact form not found");
-        return;
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value || "Client";
+            const email = document.getElementById('contactEmail').value || "";
+            const service = document.getElementById('contactService').value || "";
+            const message = document.getElementById('contactMessage').value || "";
+
+            const text = `Hi! I'm ${name} (${email}).%0AInterested in: ${service}%0A%0A${message}`;
+            window.open(`https://www.facebook.com/messages/t/meisems?message=${text}`, '_blank');
+            closeContactModal();
+        });
     }
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('contactName').value.trim() || "Client";
-        const email = document.getElementById('contactEmail').value.trim();
-        const service = document.getElementById('contactService').value;
-        const message = document.getElementById('contactMessage').value.trim();
-
-        const fbMessage = `Hi! I'm ${name} (${email}).%0A%0AInterested in: ${service}%0A%0AProject Details:%0A${message}%0A%0ALooking forward to your reply!`;
-
-        window.open(`https://www.facebook.com/messages/t/meisems?message=${fbMessage}`, '_blank');
-        closeContactModal();
-    });
 });
