@@ -907,27 +907,28 @@
         const ADMIN_SECRET = 'admin-mode-secret-key-2024';
 
         // Initialize
-function init() {
-    loadProjects();
-    renderProjects();
-    initializeTheme();
-    setupEventListeners();
-    checkAdminMode();        // ← This was missing in the second init
-}
+        function init() {
+            loadProjects();
+            renderProjects();
+            initializeTheme();
+            setupEventListeners();
+            checkAdminMode();
+        }
+        
         function checkAdminMode() {
             const params = new URLSearchParams(window.location.search);
-            const adminCode = params.get('admin');
+            const adminParam = params.get('admin');
             
-            if (adminCode === ADMIN_SECRET) {
+            if (adminParam === ADMIN_SECRET || sessionStorage.getItem('adminMode') === 'true') {
                 isAdminMode = true;
                 sessionStorage.setItem('adminMode', 'true');
-                // Remove the admin parameter from URL for cleaner address bar
+        
+        // Clean URL
+             if (adminParam) {
                 window.history.replaceState({}, document.title, window.location.pathname);
+             }
                 renderProjects();
-                showAdminNotification();
-            } else if (sessionStorage.getItem('adminMode') === 'true') {
-                isAdminMode = true;
-                renderProjects();
+            showAdminNotification();
             }
         }
 
