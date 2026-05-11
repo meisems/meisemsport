@@ -34,10 +34,8 @@ const defaultProjects = [
 
 // ===== APP STATE =====
 let projects = [];
-let isAdminMode = false;           // Keep this one
+// isAdminMode is declared only in admin.js now
 let editingProjectId = null;
 let nextProjectId = 4;
 let currentImageBase64 = null;
 let currentTechTags = [];
-
-// Remove ADMIN_SECRET from here (it's now only in admin.js)
