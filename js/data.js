@@ -1,4 +1,4 @@
-// ===== DEFAULT PROJECTS DATA (Public for everyone) =====
+// ===== PROJECTS DATA - THIS IS THE PUBLIC VERSION =====
 let projects = [
     {
         id: 1,
@@ -32,6 +32,7 @@ let projects = [
     }
 ];
 
+// ===== APP STATE =====
 let editingProjectId = null;
 let nextProjectId = 4;
 let currentImageBase64 = null;
