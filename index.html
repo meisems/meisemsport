@@ -837,9 +837,9 @@
     
     <div class="form-group">
     <label>Project Preview Image</label>
-    <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px;">
-    <input type="text" id="formImageUrl" placeholder="Or paste image URL here" style="margin-top: 8px;">
-    <small style="color:#666; display:block; margin-top: 5px;">Upload from computer or use direct image link</small>
+    <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px; width: 100%;">
+    <input type="text" id="formImageUrl" placeholder="Or paste image URL here (optional)" style="margin-top: 8px;">
+    <small style="color:#666; display:block; margin-top: 5px;">Upload from computer preferred</small>
 </div>
     
     <!-- Fixed Project Link -->
@@ -904,7 +904,9 @@
         let isAdminMode = false;
         let editingProjectId = null;
         let nextProjectId = 4;
+        let currentImageBase64 = null;
         const ADMIN_SECRET = 'eliej627456';
+        
 
         // Initialize
         function init() {
