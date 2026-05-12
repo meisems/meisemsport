@@ -3,7 +3,6 @@
 function init() {
     console.log('🚀 INITIALIZING APPLICATION...');
     
-    // Step 0: Sync from cloud if configured
     console.log('Step 0: Checking cloud sync...');
     if (window.CloudSync && window.CloudSync.isConfigured()) {
         window.CloudSync.syncFromCloud().then(() => {
@@ -16,22 +15,15 @@ function init() {
     }
 }
 
-function continueInit() {
+async function continueInit() {
     // Step 1: Load and render projects
     console.log('Step 1: Loading projects from storage...');
     loadProjects();
     renderProjects();
     
     // Step 2: Initialize about section
-    async function initAbout() {
-    console.log('🚀 Initializing about section...');
-    await loadAboutData();
-    renderAbout();
-    // ❌ REMOVED toggleAboutAdminButton() — app.js handles this in Step 5
-    setupAboutForm();
-    setupAboutImageUpload();
-    console.log('✅ About section initialized');
-}
+    console.log('Step 2: Initializing about section...');
+    await initAbout();  // ← CALL it, don't define it here
     
     // Step 3: Initialize theme
     console.log('Step 3: Initializing theme...');
@@ -51,7 +43,7 @@ function continueInit() {
     // Step 5: Check admin mode
     console.log('Step 5: Checking admin mode...');
     checkAdminMode();
-    toggleAboutAdminButton();  // ✅ Toggle button visibility after checking admin mode
+    toggleAboutAdminButton();
     
     // Step 6: Setup keyboard shortcuts
     console.log('Step 6: Setting up keyboard shortcuts...');
@@ -67,7 +59,6 @@ function continueInit() {
     console.log('🔐 Admin mode:', isAdminMode);
 }
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
