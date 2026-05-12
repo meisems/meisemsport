@@ -124,6 +124,21 @@ function showAdminNotification(message = '✅ Admin Mode Activated') {
     }, 2500);
 }
 
+// Add this function
+function toggleAdminSpacers() {
+    const spacer = document.getElementById('adminSpacer');
+    if (spacer) {
+        spacer.style.display = isAdminMode ? 'block' : 'none';
+    }
+    
+    // Ensure About admin button
+    toggleAboutAdminButton();
+    
+    // Projects add button
+    const addBtn = document.getElementById('addProjectBtn');
+    if (addBtn) addBtn.style.display = isAdminMode ? 'block' : 'none';
+}
+
 // Make functions available globally
 window.showAdminMenu = showAdminMenu;
 window.exitAdminMode = exitAdminMode;
