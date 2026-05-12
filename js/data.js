@@ -1,5 +1,6 @@
-// ===== PROJECTS DATA - THIS IS THE PUBLIC VERSION =====
-let projects = [
+// ==================== data.js ====================
+// DEFAULT PROJECTS - Only used when localStorage is empty
+const defaultProjects = [
     {
         id: 1,
         icon: '🎪',
@@ -32,7 +33,8 @@ let projects = [
     }
 ];
 
-// ===== APP STATE =====
+let projects = JSON.parse(JSON.stringify(defaultProjects)); // Deep copy
+
 let editingProjectId = null;
 let nextProjectId = 4;
 let currentImageBase64 = null;
