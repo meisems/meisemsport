@@ -1,47 +1,41 @@
-// ==================== projects.js - PROPERLY FIXED ====================
+// ==================== js/storage.js ====================
+// This file handles all localStorage operations
 
 function loadProjects() {
-    console.log('📂 loadProjects() called');
+    console.log('📂 loadProjects() - checking localStorage...');
     
     const saved = localStorage.getItem('portfolioProjects');
     
-    // CRITICAL FIX: Load from localStorage for ALL users (not just admin)
+    // ✅ FIXED: Load from localStorage for ALL users (not just admin)
     if (saved) {
         try {
             projects = JSON.parse(saved);
             console.log('✅ Loaded from localStorage:', projects.length, 'projects');
-            console.log('Projects:', projects);
         } catch (e) {
             console.error('❌ Error parsing localStorage:', e);
-            // Fallback to default
-            if (typeof defaultProjects !== 'undefined') {
-                projects = JSON.parse(JSON.stringify(defaultProjects));
-            }
+            projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+            console.log('📝 Using default projects instead');
         }
     } else {
-        console.log('📝 No saved data, using defaults');
-        if (typeof defaultProjects !== 'undefined') {
-            projects = JSON.parse(JSON.stringify(defaultProjects));
-        }
+        console.log('📝 No data in localStorage, using defaults');
+        projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
     }
     
-    // Update nextProjectId
     if (projects.length > 0) {
         nextProjectId = Math.max(...projects.map(p => p.id)) + 1;
     }
     
-    console.log('📊 Projects loaded:', projects.length, 'items');
+    console.log('📊 Total projects loaded:', projects.length);
 }
 
 function saveProjects() {
     try {
-        const dataToSave = JSON.stringify(projects);
-        localStorage.setItem('portfolioProjects', dataToSave);
-        console.log('%c✅ SAVED to localStorage!', 'background: #22c55e; color: white; padding: 5px 10px; border-radius: 3px;');
+        localStorage.setItem('portfolioProjects', JSON.stringify(projects));
+        console.log('%c✅ SAVED to localStorage!', 'background: #22c55e; color: white; padding: 5px 10px;');
         console.log('💾 Saved', projects.length, 'projects');
         return true;
     } catch (error) {
-        console.error('❌ Failed to save projects:', error);
+        console.error('❌ Failed to save:', error);
         alert('Error saving projects: ' + error.message);
         return false;
     }
@@ -52,7 +46,7 @@ function renderProjects() {
     
     const grid = document.getElementById('projectsGrid');
     if (!grid) {
-        console.error('❌ projectsGrid element not found!');
+        console.error('❌ projectsGrid not found!');
         return;
     }
     
@@ -69,8 +63,8 @@ function renderProjects() {
                     : `<div class="project-image-placeholder">${project.icon}</div>`}
             </div>
             <div class="admin-controls ${isAdminMode ? 'visible' : ''}">
-                <button class="admin-btn edit" onclick="openEditModal(${project.id})" title="Edit">✏️</button>
-                <button class="admin-btn delete" onclick="deleteProject(${project.id})" title="Delete">🗑️</button>
+                <button class="admin-btn edit" onclick="openEditModal(${project.id})">✏️</button>
+                <button class="admin-btn delete" onclick="deleteProject(${project.id})">🗑️</button>
             </div>
             <div class="project-header">
                 <div class="project-icon">${project.icon}</div>
@@ -87,43 +81,14 @@ function renderProjects() {
         grid.appendChild(card);
     });
 
-    // Show add button only for admin
-    const addBtn = document.getElementById('addProjectBtn');
-    if (addBtn) {
-        if (isAdminMode) {
-            addBtn.classList.add('visible');
-        } else {
-            addBtn.classList.remove('visible');
-        }
-    }
-    
     console.log('✅ Projects rendered on page');
 }
 
 function deleteProject(projectId) {
-    console.log('🗑️ Deleting project:', projectId);
-    
-    if (confirm('Are you sure you want to delete this project?')) {
+    if (confirm('Delete this project?')) {
         projects = projects.filter(p => p.id !== projectId);
-        console.log('Project deleted. Remaining:', projects.length);
-        
         if (saveProjects()) {
             renderProjects();
-            console.log('✅ Delete saved and rendered');
         }
     }
 }
-
-// Export function for admin
-window.exportProjects = function() {
-    const dataStr = JSON.stringify(projects, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = 'projects.json';
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-    
-    alert("✅ Projects exported! Paste the content into js/data.js to make changes permanent.");
-};
