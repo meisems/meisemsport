@@ -23,8 +23,15 @@ function continueInit() {
     renderProjects();
     
     // Step 2: Initialize about section
-    console.log('Step 2: Initializing about section...');
-    initAbout();
+    async function initAbout() {
+    console.log('🚀 Initializing about section...');
+    await loadAboutData();
+    renderAbout();
+    // ❌ REMOVED toggleAboutAdminButton() — app.js handles this in Step 5
+    setupAboutForm();
+    setupAboutImageUpload();
+    console.log('✅ About section initialized');
+}
     
     // Step 3: Initialize theme
     console.log('Step 3: Initializing theme...');
