@@ -223,7 +223,7 @@ async function initAbout() {
     await loadAboutData();   // async: tries cloud then localStorage
     renderAbout();
     console.log('Before toggleAboutAdminButton - isAdminMode:', isAdminMode);
-    toggleAboutAdminButton();
+    
     setupAboutForm();
     setupAboutImageUpload();
     console.log('✅ About section initialized');
