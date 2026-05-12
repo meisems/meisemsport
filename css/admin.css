@@ -6,26 +6,30 @@
     padding: 10px 0;
 }
 
-/* Better separation between About Me and Projects in Admin Mode */
-.admin-section-spacer {
-    margin: 40px 0;
-    border-top: 2px dashed var(--accent-primary);
-    opacity: 0.6;
-}
-
-.admin-mode .about-section,
-.admin-mode .projects-section {
-    position: relative;
-}
-
-/* Ensure About admin button is prominent */
+/* Specific fix for About Me admin button */
 #aboutAdminBtn {
-    display: none;
     text-align: center;
-    margin: 40px 0 60px 0;
-    padding: 20px;
-    background: rgba(59, 130, 246, 0.1);
-    border-radius: 12px;
+    margin: 50px 0 70px 0;
+    padding: 20px 0;
+}
+
+/* Main consistent admin button */
+.admin-btn {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.admin-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }
 
 /* Main Admin Button Style */
@@ -40,11 +44,6 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.admin-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
 }
 
 /* Small admin buttons for projects (edit/delete) */
