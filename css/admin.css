@@ -209,3 +209,24 @@
         padding: 28px;
     }
 }
+/* Better separation between About Me and Projects in Admin Mode */
+.admin-section-spacer {
+    margin: 40px 0;
+    border-top: 2px dashed var(--accent-primary);
+    opacity: 0.6;
+}
+
+.admin-mode .about-section,
+.admin-mode .projects-section {
+    position: relative;
+}
+
+/* Ensure About admin button is prominent */
+#aboutAdminBtn {
+    display: none;
+    text-align: center;
+    margin: 40px 0 60px 0;
+    padding: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+}
