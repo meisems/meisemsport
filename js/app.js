@@ -1,69 +1,68 @@
-// ==================== app.js ====================
+// ==================== js/app.js ====================
 
-// ===== EVENT LISTENERS =====
-function setupEventListeners() {
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
+function init() {
+    console.log('🚀 INITIALIZING APPLICATION...');
+    
+    // Step 0: Sync from cloud if configured
+    console.log('Step 0: Checking cloud sync...');
+    if (window.CloudSync && window.CloudSync.isConfigured()) {
+        window.CloudSync.syncFromCloud().then(() => {
+            continueInit();
+        }).catch(() => {
+            continueInit();
+        });
+    } else {
+        continueInit();
     }
+}
 
-    document.addEventListener('keydown', e => {
+function continueInit() {
+    // Step 1: Load and render projects
+    console.log('Step 1: Loading projects from storage...');
+    loadProjects();
+    renderProjects();
+    
+    // Step 2: Initialize about section
+    console.log('Step 2: Initializing about section...');
+    initAbout();
+    
+    // Step 3: Initialize theme
+    console.log('Step 3: Initializing theme...');
+    initializeTheme();
+    setupThemeToggle();
+    
+    // Step 4: Setup forms and modals
+    console.log('Step 4: Setting up forms and modals...');
+    setupFormSubmit();
+    setupImageUpload();
+    setupTechInputEnter();
+    setupModalEscape();
+    setupModalBackgroundClick();
+    setupContactForm();
+    setupContactModalListeners();
+    
+    // Step 5: Check admin mode
+    console.log('Step 5: Checking admin mode...');
+    checkAdminMode();
+    toggleAboutAdminButton();  // ✅ Toggle button visibility after checking admin mode
+    
+    // Step 6: Setup keyboard shortcuts
+    console.log('Step 6: Setting up keyboard shortcuts...');
+    document.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.shiftKey && e.key === 'A') {
             e.preventDefault();
             showAdminMenu();
         }
     });
     
-    console.log('✅ Event listeners setup');
-}
-
-// ===== INIT - CRITICAL ORDER =====
-function init() {
-    console.log('🚀 INITIALIZATION STARTING');
-    
-    // Step 1: Load projects from localStorage (or defaults)
-    console.log('Step 1: Loading projects...');
-    loadProjects();
-    
-    // Step 2: Render projects on page
-    console.log('Step 2: Rendering projects...');
-    renderProjects();
-    
-    // Step 3: Load about data
-    console.log('Step 3: Loading about data...');
-    loadAboutData();
-    renderAbout();
-    
-    // Step 4: Initialize theme
-    console.log('Step 4: Initializing theme...');
-    initializeTheme();
-    
-    // Step 5: Setup event listeners
-    console.log('Step 5: Setting up event listeners...');
-    setupEventListeners();
-    
-    // Step 6: Setup forms
-    console.log('Step 6: Setting up forms...');
-    setupImageUpload();
-    setupFormSubmit();
-    
-    // Step 7: Check admin mode
-    console.log('Step 7: Checking admin mode...');
-    checkAdminMode();
-    toggleAboutAdminButton();
-    initAbout();
-    
-    console.log('✅ INITIALIZATION COMPLETE!');
+    console.log('✅ INITIALIZATION COMPLETE');
     console.log('📊 Total projects loaded:', projects.length);
+    console.log('🔐 Admin mode:', isAdminMode);
 }
 
-// ===== RUN ON PAGE LOAD =====
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
 }
-
-window.onload = function() {
-    console.log('🔄 Page fully loaded (window.onload)');
-};
