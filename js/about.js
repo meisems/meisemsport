@@ -7,8 +7,35 @@ let aboutData = {
     experience: "3+ years"
 };
 
-function loadAboutData() {
+// ── Cloud helpers ────────────────────────────────────────────────────────────
+
+function isCloudSyncAvailable() {
+    return typeof window.CloudSync !== 'undefined' && window.CloudSync.isConfigured();
+}
+
+// ── Load ─────────────────────────────────────────────────────────────────────
+
+async function loadAboutData() {
     console.log('📝 Loading about data...');
+
+    // 1. Try cloud first (if configured)
+    if (isCloudSyncAvailable()) {
+        try {
+            console.log('☁️ Attempting cloud load for about data...');
+            const cloudData = await window.CloudSync.loadFromCloud();
+            if (cloudData && cloudData.aboutData) {
+                aboutData = cloudData.aboutData;
+                // Keep localStorage in sync
+                localStorage.setItem('aboutData', JSON.stringify(aboutData));
+                console.log('✅ About data loaded from cloud');
+                return;
+            }
+        } catch (e) {
+            console.warn('⚠️ Cloud load failed, falling back to localStorage:', e);
+        }
+    }
+
+    // 2. Fall back to localStorage
     const saved = localStorage.getItem('aboutData');
     if (saved) {
         try {
@@ -20,16 +47,37 @@ function loadAboutData() {
     }
 }
 
-function saveAboutData() {
+// ── Save ──────────────────────────────────────────────────────────────────────
+
+async function saveAboutData() {
+    // Always write to localStorage first (fast, offline-safe)
     try {
         localStorage.setItem('aboutData', JSON.stringify(aboutData));
         console.log('✅ About data saved to localStorage');
-        return true;
     } catch (e) {
-        console.error('Error saving about data:', e);
+        console.error('Error saving about data to localStorage:', e);
         return false;
     }
+
+    // Then push to cloud (if configured)
+    if (isCloudSyncAvailable()) {
+        try {
+            console.log('☁️ Syncing about data to cloud...');
+            const success = await window.CloudSync.syncToCloud();
+            if (success) {
+                console.log('✅ About data synced to cloud');
+            } else {
+                console.warn('⚠️ Cloud sync failed — data saved locally only');
+            }
+        } catch (e) {
+            console.warn('⚠️ Cloud sync error — data saved locally only:', e);
+        }
+    }
+
+    return true;
 }
+
+// ── Render ────────────────────────────────────────────────────────────────────
 
 function renderAbout() {
     console.log('🎨 Rendering about section...');
@@ -39,8 +87,9 @@ function renderAbout() {
         return;
     }
 
-    const imageHTML = aboutData.imageUrl ? 
-        `<img src="${aboutData.imageUrl}" alt="Profile" style="width:180px;height:180px;object-fit:cover;border-radius:50%;margin-bottom:20px;">` : '';
+    const imageHTML = aboutData.imageUrl
+        ? `<img src="${aboutData.imageUrl}" alt="Profile" style="width:180px;height:180px;object-fit:cover;border-radius:50%;margin-bottom:20px;">`
+        : '';
 
     container.innerHTML = `
         <div style="text-align:center;max-width:700px;margin:0 auto;">
@@ -58,21 +107,22 @@ function renderAbout() {
     console.log('✅ About section rendered');
 }
 
+// ── Modal ─────────────────────────────────────────────────────────────────────
+
 function openAboutModal() {
     console.log('📋 Opening about edit modal...');
-    
+
     const modal = document.getElementById('aboutModal');
     if (!modal) {
         console.error('❌ aboutModal not found!');
         return;
     }
-    
-    // Fill form with current data
+
     document.getElementById('aboutBio').value = aboutData.bio;
     document.getElementById('aboutSkills').value = aboutData.skills.join(', ');
     document.getElementById('aboutExperience').value = aboutData.experience;
     document.getElementById('aboutImageUrl').value = aboutData.imageUrl || '';
-    
+
     modal.classList.add('active');
     console.log('✅ About modal opened');
 }
@@ -80,20 +130,20 @@ function openAboutModal() {
 function closeAboutModal() {
     console.log('❌ Closing about modal');
     const modal = document.getElementById('aboutModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
+    if (modal) modal.classList.remove('active');
 }
+
+// ── Admin toggle ──────────────────────────────────────────────────────────────
 
 function toggleAboutAdminButton() {
     console.log('🔐 toggleAboutAdminButton() called, isAdminMode =', isAdminMode);
-    
+
     const btn = document.getElementById('aboutAdminBtn');
     if (!btn) {
         console.error('❌ aboutAdminBtn element not found!');
         return;
     }
-    
+
     if (isAdminMode) {
         btn.style.display = 'block';
         console.log('✅ About edit button VISIBLE (admin mode)');
@@ -103,6 +153,8 @@ function toggleAboutAdminButton() {
     }
 }
 
+// ── Form setup ────────────────────────────────────────────────────────────────
+
 function setupAboutForm() {
     console.log('📋 Setting up about form...');
     const aboutForm = document.getElementById('aboutForm');
@@ -111,11 +163,10 @@ function setupAboutForm() {
         return;
     }
 
-    aboutForm.addEventListener('submit', (e) => {
+    aboutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         console.log('📝 Submitting about form...');
-        
-        // Get form values
+
         aboutData.bio = document.getElementById('aboutBio').value;
         aboutData.skills = document.getElementById('aboutSkills').value
             .split(',')
@@ -125,8 +176,9 @@ function setupAboutForm() {
         aboutData.imageUrl = document.getElementById('aboutImageUrl').value || '';
 
         console.log('💾 New about data:', aboutData);
-        
-        if (saveAboutData()) {
+
+        const saved = await saveAboutData();
+        if (saved) {
             renderAbout();
             closeAboutModal();
             console.log('✅ About section updated!');
@@ -135,9 +187,11 @@ function setupAboutForm() {
             alert('Error saving changes');
         }
     });
-    
+
     console.log('✅ About form ready');
 }
+
+// ── Image upload ──────────────────────────────────────────────────────────────
 
 function setupAboutImageUpload() {
     console.log('🖼️ Setting up about image upload...');
@@ -150,9 +204,9 @@ function setupAboutImageUpload() {
     imageUpload.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        
+
         console.log('📸 Image file selected:', file.name);
-        
+
         const reader = new FileReader();
         reader.onload = (ev) => {
             document.getElementById('aboutImageUrl').value = ev.target.result;
@@ -162,9 +216,11 @@ function setupAboutImageUpload() {
     });
 }
 
-function initAbout() {
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+async function initAbout() {
     console.log('🚀 Initializing about section...');
-    loadAboutData();
+    await loadAboutData();   // async: tries cloud then localStorage
     renderAbout();
     console.log('Before toggleAboutAdminButton - isAdminMode:', isAdminMode);
     toggleAboutAdminButton();
