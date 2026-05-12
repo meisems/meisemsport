@@ -1,36 +1,44 @@
-// ==================== projects.js ====================
+// ==================== projects.js - PROPERLY FIXED ====================
 
 function loadProjects() {
     console.log('📂 loadProjects() called');
     
     const saved = localStorage.getItem('portfolioProjects');
     
+    // CRITICAL FIX: Load from localStorage for ALL users (not just admin)
     if (saved) {
         try {
             projects = JSON.parse(saved);
             console.log('✅ Loaded from localStorage:', projects.length, 'projects');
+            console.log('Projects:', projects);
         } catch (e) {
             console.error('❌ Error parsing localStorage:', e);
-            projects = JSON.parse(JSON.stringify(defaultProjects));
+            // Fallback to default
+            if (typeof defaultProjects !== 'undefined') {
+                projects = JSON.parse(JSON.stringify(defaultProjects));
+            }
         }
     } else {
-        console.log('📝 No data in localStorage, using defaults');
-        projects = JSON.parse(JSON.stringify(defaultProjects));
+        console.log('📝 No saved data, using defaults');
+        if (typeof defaultProjects !== 'undefined') {
+            projects = JSON.parse(JSON.stringify(defaultProjects));
+        }
     }
     
+    // Update nextProjectId
     if (projects.length > 0) {
         nextProjectId = Math.max(...projects.map(p => p.id)) + 1;
     }
     
-    console.log('📊 Current projects:', projects);
+    console.log('📊 Projects loaded:', projects.length, 'items');
 }
 
 function saveProjects() {
     try {
         const dataToSave = JSON.stringify(projects);
         localStorage.setItem('portfolioProjects', dataToSave);
-        console.log('%c✅ SAVED to localStorage! ', 'background: #22c55e; color: white; padding: 5px 10px; border-radius: 3px;');
-        console.log('Projects saved:', projects.length, 'items');
+        console.log('%c✅ SAVED to localStorage!', 'background: #22c55e; color: white; padding: 5px 10px; border-radius: 3px;');
+        console.log('💾 Saved', projects.length, 'projects');
         return true;
     } catch (error) {
         console.error('❌ Failed to save projects:', error);
@@ -40,7 +48,7 @@ function saveProjects() {
 }
 
 function renderProjects() {
-    console.log('🎨 renderProjects() called with', projects.length, 'projects');
+    console.log('🎨 renderProjects() - rendering', projects.length, 'projects');
     
     const grid = document.getElementById('projectsGrid');
     if (!grid) {
@@ -79,9 +87,14 @@ function renderProjects() {
         grid.appendChild(card);
     });
 
+    // Show add button only for admin
     const addBtn = document.getElementById('addProjectBtn');
     if (addBtn) {
-        addBtn.classList.toggle('visible', isAdminMode);
+        if (isAdminMode) {
+            addBtn.classList.add('visible');
+        } else {
+            addBtn.classList.remove('visible');
+        }
     }
     
     console.log('✅ Projects rendered on page');
@@ -101,6 +114,7 @@ function deleteProject(projectId) {
     }
 }
 
+// Export function for admin
 window.exportProjects = function() {
     const dataStr = JSON.stringify(projects, null, 2);
     const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
