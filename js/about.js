@@ -220,10 +220,8 @@ function setupAboutImageUpload() {
 
 async function initAbout() {
     console.log('🚀 Initializing about section...');
-    await loadAboutData();   // async: tries cloud then localStorage
+    await loadAboutData();
     renderAbout();
-    console.log('Before toggleAboutAdminButton - isAdminMode:', isAdminMode);
-    
     setupAboutForm();
     setupAboutImageUpload();
     console.log('✅ About section initialized');
