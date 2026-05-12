@@ -1,5 +1,4 @@
-// ==================== js/storage.js ====================
-// This file handles all localStorage operations
+// ==================== js/projects.js ====================
 
 function loadProjects() {
     console.log('📂 loadProjects() - checking localStorage...');
@@ -33,6 +32,16 @@ function saveProjects() {
         localStorage.setItem('portfolioProjects', JSON.stringify(projects));
         console.log('%c✅ SAVED to localStorage!', 'background: #22c55e; color: white; padding: 5px 10px;');
         console.log('💾 Saved', projects.length, 'projects');
+        
+        // Sync to cloud if configured
+        if (window.CloudSync && window.CloudSync.isConfigured()) {
+            window.CloudSync.syncToCloud().then(success => {
+                if (success) {
+                    console.log('☁️ Synced to cloud!');
+                }
+            });
+        }
+        
         return true;
     } catch (error) {
         console.error('❌ Failed to save:', error);
