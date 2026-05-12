@@ -22,8 +22,8 @@
                 <div class="logo">Portfolio</div>
                 <div class="nav-container">
                     <nav>
-                        <a href="#projects">Projects </a>
-                        <a href="#footer"> Contact</a>
+                        <a href="#projects">Projects</a>
+                        <a href="#footer">Contact</a>
                     </nav>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <span id="themeIcon">🌙</span>
@@ -33,41 +33,41 @@
         </header>
 
         <!-- Hero Section -->
-<section class="hero">
-    <h1>Crafting Digital Experiences</h1>
-    <p class="subtitle">Full-Stack Developer Building Modern Web Solutions</p>
-    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="#projects" class="cta-button">View My Work</a>
-        <button onclick="openContactModal()" class="cta-button hire-me-btn">
-            💼 Hire Me
-        </button>
-    </div>
-</section>
+        <section class="hero">
+            <h1>Crafting Digital Experiences</h1>
+            <p class="subtitle">Full-Stack Developer Building Modern Web Solutions</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#projects" class="cta-button">View My Work</a>
+                <button onclick="openContactModal()" class="cta-button hire-me-btn">
+                    💼 Hire Me
+                </button>
+            </div>
+        </section>
         
-                        <!-- About Me Section -->
-<section class="about-section" id="about">
-    <div class="container">
-        <h2 class="section-title">About Me</h2>
-        
-        <div class="about-content" id="aboutContent">
-            <!-- Filled by JS -->
-        </div>
+        <!-- About Me Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                
+                <div class="about-content" id="aboutContent">
+                    <!-- Filled by JS -->
+                </div>
 
-        <!-- Admin Edit Button -->
-        <div id="aboutAdminBtn" style="text-align: center; margin: 30px 0; display: none;">
-            <button onclick="openAboutModal()" 
-                    style="padding: 12px 28px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-                ✏️ Edit About Me
-            </button>
-        </div>
-    </div>
-</section>
+                <!-- Admin Edit Button -->
+                <div id="aboutAdminBtn" style="text-align: center; margin: 30px 0; display: none;">
+                    <button onclick="openAboutModal()" 
+                            style="padding: 12px 28px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                        ✏️ Edit About Me
+                    </button>
+                </div>
+            </div>
+        </section>
         
         <!-- Projects Section -->
         <section class="projects-section" id="projects">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid" id="projectsGrid">
-                <!-- Projects dynamically loaded by projects.js -->
+                <!-- Projects dynamically loaded -->
             </div>
             <div class="add-project-btn" id="addProjectBtn">
                 <button onclick="openAddModal()">+ Add New Project</button>
@@ -76,103 +76,101 @@
 
     </div>
 
-   <!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <div class="footer-content">
-            <p>&copy; 2026 Emmanuel Joshua Badong. All rights reserved.</p>
-            <div class="social-links">
-                <a href="https://github.com/meisems" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/emmanuel-joshua-badong-7b508540a" target="_blank">LinkedIn</a>
-                <a href="https://www.facebook.com/meisems/" target="_blank">Facebook</a>
-                <a href="mailto:badonge.dev@gmail.com">Email</a>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Emmanuel Joshua Badong. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/meisems" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/emmanuel-joshua-badong-7b508540a" target="_blank">LinkedIn</a>
+                    <a href="https://www.facebook.com/meisems/" target="_blank">Facebook</a>
+                    <a href="mailto:badonge.dev@gmail.com">Email</a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
     
-    <!-- Edit / Add Project Modal -->
-<div class="modal" id="projectModal">
-    <div class="modal-content">
-        <h2 class="modal-header" id="modalTitle">Edit Project</h2>
-        <form id="projectForm">
-            <div class="form-group">
-                <label>Project Icon (Emoji)</label>
-                <input type="text" id="formIcon" maxlength="2" placeholder="🎪" required>
-            </div>
-            <div class="form-group">
-                <label>Project Title</label>
-                <input type="text" id="formTitle" placeholder="MetroEvents" required>
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <input type="text" id="formCategory" placeholder="Web Application" required>
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea id="formDescription" placeholder="A dynamic event management platform..." required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Project Preview Image</label>
-                <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px; width: 100%;">
-                <input type="text" id="formImageUrl" placeholder="Or paste image URL here (optional)" style="margin-top: 8px;">
-                <small style="color: #666; display: block; margin-top: 5px;">Upload from computer preferred</small>
-            </div>
-            <div class="form-group">
-                <label>Project Link <span style="color: #ef4444; font-size: 13px;">(Required - Full URL)</span></label>
-                <input type="text" id="formLink" placeholder="https://meisemsport.onrender.com" required>
-            </div>
-            <div class="form-group">
-                <label>Technologies</label>
-                <div class="tech-input-container">
-                    <input type="text" id="techInput" placeholder="e.g., React">
-                    <button type="button" onclick="addTechTag()">Add</button>
+    <!-- Modals -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <h2 class="modal-header" id="modalTitle">Edit Project</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label>Project Icon (Emoji)</label>
+                    <input type="text" id="formIcon" maxlength="2" placeholder="🎪" required>
                 </div>
-                <div class="tech-tags-edit" id="techTagsContainer"></div>
-            </div>
-            <div class="form-buttons">
-                <button type="submit" class="btn-save">Save Project</button>
-                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" id="formTitle" placeholder="MetroEvents" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="formCategory" placeholder="Web Application" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="formDescription" placeholder="A dynamic event management platform..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Project Preview Image</label>
+                    <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 10px; width: 100%;">
+                    <input type="text" id="formImageUrl" placeholder="Or paste image URL here (optional)" style="margin-top: 8px;">
+                </div>
+                <div class="form-group">
+                    <label>Project Link</label>
+                    <input type="text" id="formLink" placeholder="https://meisemsport.onrender.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Technologies</label>
+                    <div class="tech-input-container">
+                        <input type="text" id="techInput" placeholder="e.g., React">
+                        <button type="button" onclick="addTechTag()">Add</button>
+                    </div>
+                    <div class="tech-tags-edit" id="techTagsContainer"></div>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-save">Save Project</button>
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- About Me Edit Modal -->
-<div class="modal" id="aboutModal">
-    <div class="modal-content">
-        <h2 class="modal-header">Edit About Me</h2>
-        <form id="aboutForm">
-            <div class="form-group">
-                <label>Profile Picture</label>
-                <input type="file" id="aboutImageUpload" accept="image/*">
-                <input type="text" id="aboutImageUrl" placeholder="Or paste image URL" style="margin-top: 8px;">
-            </div>
-            <div class="form-group">
-                <label>Bio / Introduction</label>
-                <textarea id="aboutBio" rows="5" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Skills (comma separated)</label>
-                <input type="text" id="aboutSkills" placeholder="React, Node.js, Tailwind CSS..." required>
-            </div>
-            <div class="form-group">
-                <label>Experience</label>
-                <input type="text" id="aboutExperience" placeholder="3+ years of experience" required>
-            </div>
-            <div class="form-buttons">
-                <button type="submit" class="btn-save">Save Changes</button>
-                <button type="button" class="btn-cancel" onclick="closeAboutModal()">Cancel</button>
-            </div>
-        </form>
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <h2 class="modal-header">Edit About Me</h2>
+            <form id="aboutForm">
+                <div class="form-group">
+                    <label>Profile Picture</label>
+                    <input type="file" id="aboutImageUpload" accept="image/*">
+                    <input type="text" id="aboutImageUrl" placeholder="Or paste image URL" style="margin-top: 8px;">
+                </div>
+                <div class="form-group">
+                    <label>Bio / Introduction</label>
+                    <textarea id="aboutBio" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Skills (comma separated)</label>
+                    <input type="text" id="aboutSkills" placeholder="React, Node.js, Tailwind CSS..." required>
+                </div>
+                <div class="form-group">
+                    <label>Experience</label>
+                    <input type="text" id="aboutExperience" placeholder="3+ years of experience" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-save">Save Changes</button>
+                    <button type="button" class="btn-cancel" onclick="closeAboutModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- ==================== HIRE ME MODAL ==================== -->
+    <!-- Contact Modal -->
     <div class="modal" id="contactModal">
         <div class="modal-content">
             <h2 class="modal-header">Let's Work Together</h2>
-            
             <form id="contactForm">
                 <div class="form-group">
                     <label>Your Name</label>
@@ -204,16 +202,31 @@
             </form>
         </div>
     </div>
-    
-    <!-- Scripts (order matters) -->
+
+    <!-- ==================== SCRIPTS (CORRECT ORDER) ==================== -->
+    <!-- 1. Load data and state first -->
     <script src="js/data.js"></script>
+    
+    <!-- 2. Storage operations -->
+    <script src="js/storage.js"></script>
+    
+    <!-- 3. Theme -->
     <script src="js/theme.js"></script>
-    <script src="js/projects.js"></script>
+    
+    <!-- 4. Modal and forms -->
     <script src="js/modal.js"></script>
+    
+    <!-- 5. Admin mode -->
     <script src="js/admin.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/contact.js"></script>
+    
+    <!-- 6. About section -->
     <script src="js/about.js"></script>
+    
+    <!-- 7. Contact form -->
+    <script src="js/contact.js"></script>
+    
+    <!-- 8. Initialize everything (must be last) -->
+    <script src="js/app.js"></script>
 
 </body>
 </html>
