@@ -2,11 +2,18 @@
 function loadProjects() {
     const saved = localStorage.getItem('portfolioProjects');
     
-    if (saved && isAdminMode) {
-        // Admin can see their temporary changes
-        projects = JSON.parse(saved);
+    // FIXED: Always load from localStorage if it exists
+    // This ensures changes persist across page refresh
+    if (saved) {
+        try {
+            projects = JSON.parse(saved);
+            console.log('✅ Loaded projects from localStorage');
+        } catch (e) {
+            console.error('Error parsing localStorage:', e);
+            // Fallback to default projects if JSON is corrupt
+        }
     } 
-    // Otherwise use the data from data.js (public version)
+    // Only use default data from data.js if localStorage is empty
     
     // Update next ID
     if (projects.length > 0) {
@@ -16,7 +23,7 @@ function loadProjects() {
 
 function saveProjects() {
     localStorage.setItem('portfolioProjects', JSON.stringify(projects));
-    console.log('%c💾 Changes saved locally (visible only to you)', 'color: orange');
+    console.log('%c💾 Changes saved to localStorage (persistent)', 'color: green; font-weight: bold;');
 }
 
 // Add this new function for admin
