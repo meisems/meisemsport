@@ -5,19 +5,20 @@ function loadProjects() {
     
     const saved = localStorage.getItem('portfolioProjects');
     
-    // ✅ FIXED: Load from localStorage for ALL users (not just admin)
     if (saved) {
         try {
             projects = JSON.parse(saved);
             console.log('✅ Loaded from localStorage:', projects.length, 'projects');
         } catch (e) {
             console.error('❌ Error parsing localStorage:', e);
-            projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+            // FIX: was DEFAULT_PROJECTS (undefined) — corrected to defaultProjects
+            projects = JSON.parse(JSON.stringify(defaultProjects));
             console.log('📝 Using default projects instead');
         }
     } else {
         console.log('📝 No data in localStorage, using defaults');
-        projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+        // FIX: was DEFAULT_PROJECTS (undefined) — corrected to defaultProjects
+        projects = JSON.parse(JSON.stringify(defaultProjects));
     }
     
     if (projects.length > 0) {
@@ -71,7 +72,7 @@ function renderProjects() {
                     ? `<img src="${project.imageUrl}" alt="${project.title}" class="project-image" onerror="this.style.display='none'">`
                     : `<div class="project-image-placeholder">${project.icon}</div>`}
             </div>
-            <div class="admin-controls ${isAdminMode ? 'visible' : ''}">
+            <div class="admin-controls">
                 <button class="admin-btn edit" onclick="openEditModal(${project.id})">✏️</button>
                 <button class="admin-btn delete" onclick="deleteProject(${project.id})">🗑️</button>
             </div>
